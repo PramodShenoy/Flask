@@ -1,4 +1,5 @@
 from flask import Flask,jsonify,request
+import json
 app=Flask(__name__)
 
 animals=[{'name':'cats'},{'name':'dogs'},{'name':'python'},{'name':'leopard'}]
@@ -9,9 +10,10 @@ def test():
 
 @app.route('/animals',methods=['POST'])
 def updateList():
-	a={'name':request.json['name']}
-	animals.append(a)
-	return jsonify({'my animals':animals})
+	data=request.data
+	data=json.loads(data)
+	animals.append(data)
+	return jsonify({'my new animal':animals})
 
 if __name__=='__main__':
-	app.run(debug=True,port=8080)
+	app.run(debug=True,port=1111)
